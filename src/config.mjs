@@ -1,20 +1,20 @@
 export default {
-    title: "Homepage",
-    titleSuffix: " | Pacamara ☕",
-    description: "Aromatic brew, pure indulgence, exquisite satisfaction.Default description",
+    title: "Delioos ",
+    titleSuffix: " | Blog",
+    description: "The journey of a modern explorer",
     defaultOgImage: "./defaultog.jpg",
     latestPosts: 3,
     postsPerPage: 3,
-    url: "https://pacamara-astro-6y7xr.kinsta.page",
+    url: "https://delioos.xyz",
     social: {
         'dribbble': false,
         'facebook': false,
-        'github': 'https://github.com/palmiak',
+        'github': 'https://github.com/delioos',
         'instagram': false,
         'mastodon': false,
         'pinterest': false,
         'skype': false,
-        'twitter': 'https://twitter.com/palmiak_fp'
+        'twitter': 'https://twitter.com/delioooooos'
 
     }
 }
