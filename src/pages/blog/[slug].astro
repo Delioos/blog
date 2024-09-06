@@ -1,4 +1,9 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+
+const { entry } = Astro.props as { entry: CollectionEntry<'blog'> };
+//entry.data.type = "blog";
+
 import { Image } from 'astro:assets'
 
 import Base from "../../layouts/Base.astro";
@@ -17,8 +22,6 @@ export async function getStaticPaths() {
     props: { entry },
   }));
 }
-const { entry } = Astro.props;
-entry.data.type = "blog";
 
 const { Content } = await entry.render();
 const author = await getEntry(entry.data.author);
@@ -36,9 +39,12 @@ const author = await getEntry(entry.data.author);
             <PublishDate date={entry.data.pubDate} />
         </p>
     </div>
+    <!--
     {entry.data.image && 
       <Image src={entry.data.image} width="1200" height="250" alt="" loading="eager" decoding="sync" class="block relative mx-auto mt-10 object-cover h-72 md:h-[350px] image-shine rounded-[15px]" loading="eager" />
-    }
+      }
+	should fix or add image but meow
+    -->
     <div class="
         lg:px-0 pt-10 mb-5 mx-auto
         prose lg:prose-xl

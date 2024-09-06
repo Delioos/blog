@@ -1,22 +1,31 @@
 ---
+import type { Page, GetStaticPathsResult } from 'astro';
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import config from '../../config.mjs';
 
 
 import Base from "../../layouts/Base.astro";
 import Post from "../../components/blog/Post.astro";
 
-export async function getStaticPaths({paginate}) {
-    const blogEntries = (await getCollection('blog', ({ data }) => {
-        return true;
-    })).sort(
-        (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-    );
-
-    return paginate(blogEntries, { pageSize: config.postsPerPage });
+export async function getStaticPaths({ paginate }: {
+  paginate: (data: CollectionEntry<'blog'>[], options: { pageSize: number }) => GetStaticPathsResult
+}): Promise<GetStaticPathsResult> {
+  const blogEntries = (await getCollection('blog', ({ data }) => {
+    return true;
+  })).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+  return paginate(blogEntries, { pageSize: config.postsPerPage });
 }
 
+
+type Props = {
+	page: Page<CollectionEntry<'blog'>>;
+};
+
 const { page } = Astro.props;
+
 ---
 <Base>
     <section class="container mx-auto max-w-screen-lg px-7 py-10">

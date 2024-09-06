@@ -26,7 +26,7 @@
 <script>
   const setDarkModeButton = () => {
     const button = document.querySelector("#mode_switcher");
-    button.addEventListener('click', function(){
+    button?.addEventListener('click', function(){
       document.documentElement.classList.toggle('dark');
 
       if ( document.documentElement.classList.contains('dark') ) {
