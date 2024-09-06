@@ -14,7 +14,7 @@ export default {
         'mastodon': false,
         'pinterest': false,
         'skype': false,
-        'twitter': 'https://twitter.com/delioooooos'
+        'twitter': 'https://twitter.com/deliossssss'
 
     }
 }
