@@ -7,5 +7,5 @@ export default defineConfig({
   integrations: [tailwind(), mdx()],
   //site: 'https://delioos.xyz',
   //site: 'https://delioos.github.io',
-  base: 'blog',
+  base: '/'
 });
