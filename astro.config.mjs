@@ -3,16 +3,13 @@ import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import vercel from '@astrojs/vercel/serverless';
 
-// https://astro.build/config
 export default defineConfig({
-	output: 'server',
-	adapter: vercel(
-		{
-			webAnalytics: { enable: true}
-		}
-	),
+  output: 'server',
+  adapter: vercel({
+    webAnalytics: { enabled: true }
+  }),
   integrations: [tailwind(), mdx()],
-  site: 'https://delioos.xyz',
-  //site: 'https://delioos.github.io',
-  base: '/'
+site: 'https://delioos.xyz'
 });
+
+
