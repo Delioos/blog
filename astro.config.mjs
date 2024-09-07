@@ -9,7 +9,7 @@ export default defineConfig({
     webAnalytics: { enabled: true }
   }),
   integrations: [tailwind(), mdx()],
-site: 'https://delioos.xyz'
+site: 'https://www.delioos.xyz'
 });
 
 
