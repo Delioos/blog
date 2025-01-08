@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import Tag from '../general/Tag.astro';
+
+const { project } = Astro.props;
+---
+<article class="bg-white dark:bg-pacamara-dark rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
+    {project.data.image && (
+        <Image 
+            src={project.data.image} 
+            alt={project.data.title}
+            width={800}
+            height={400}
+            class="w-full h-48 object-cover"
+        />
+    )}
+    <div class="p-6">
+        <h3 class="text-2xl font-bold text-pacamara-dark dark:text-white mb-2">
+            {project.data.title}
+        </h3>
+        <p class="text-pacamara-primary/70 dark:text-white/70 mb-4">
+            {project.data.description}
+        </p>
+        <div class="flex flex-wrap gap-2 mb-4">
+            <Tag tags={project.data.tags} />
+        </div>
+        <div class="flex gap-4">
+            {project.data.github && (
+                <a href={project.data.github} target="_blank" rel="noopener noreferrer" 
+                   class="text-pacamara-accent hover:text-pacamara-dark dark:hover:text-white transition-colors">
+                    GitHub
+                </a>
+            )}
+            {project.data.demo && (
+                <a href={project.data.demo} target="_blank" rel="noopener noreferrer"
+                   class="text-pacamara-accent hover:text-pacamara-dark dark:hover:text-white transition-colors">
+                    Live Demo
+                </a>
+            )}
+        </div>
+    </div>
+</article> 

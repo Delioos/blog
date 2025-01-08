@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const careers = (await getCollection('career')).sort(
+    (a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf()
+);
+
+const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+};
+---
+
+<Base>
+    <div class="container mx-auto max-w-screen-xl px-7 py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-[250px_auto] gap-8">
+            <!-- Table of Contents -->
+            <nav class="hidden lg:block sticky top-8 h-fit">
+                <ul class="space-y-2 text-sm" id="toc">
+                    {careers.map((item, index) => (
+                        <li>
+                            <a 
+                                href={`#career-${index}`}
+                                class="block py-2 px-4 rounded-lg hover:bg-pacamara-accent hover:text-white transition-all duration-300"
+                            >
+                                {item.data.title}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+
+            <!-- Career Timeline -->
+            <div class="space-y-12">
+                {careers.map((item, index) => (
+                    <div id={`career-${index}`} class="scroll-mt-8">
+                        <div class="flex flex-col md:flex-row justify-between mb-2">
+                            <h3 class="text-xl font-bold text-pacamara-dark dark:text-white">
+                                {item.data.title}
+                            </h3>
+                            <span class="text-pacamara-secondary">
+                                {formatDate(item.data.startDate)} - 
+                                {item.data.endDate ? formatDate(item.data.endDate) : 'Present'}
+                            </span>
+                        </div>
+                        <h4 class="text-lg text-pacamara-accent mb-2">
+                            {item.data.company} • {item.data.location}
+                        </h4>
+                        <ul class="list-disc list-inside space-y-2 text-pacamara-primary/70 dark:text-white/70">
+                            {item.data.description.map(desc => (
+                                <li>{desc}</li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</Base>
+
+<script>
+// Intersection Observer for active TOC item
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            document.querySelectorAll('#toc a').forEach(link => {
+                link.classList.remove('bg-pacamara-accent', 'text-white');
+            });
+            const id = entry.target.id;
+            const link = document.querySelector(`#toc a[href="#${id}"]`);
+            link?.classList.add('bg-pacamara-accent', 'text-white');
+        }
+    });
+}, {
+    rootMargin: '-50% 0px -50% 0px'
+});
+
+document.querySelectorAll('[id^="career-"]').forEach((section) => {
+    observer.observe(section);
+});
+
+// Smooth scroll for TOC links
+document.querySelectorAll('#toc a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        document.querySelector(href)?.scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+</script> 

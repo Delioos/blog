@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/projects/ProjectCard.astro';
+
+const projects = await getCollection('project');
+const featuredProjects = projects.filter(p => p.data.featured);
+const otherProjects = projects.filter(p => !p.data.featured);
+---
+<Base>
+    <section class="container mx-auto max-w-screen-lg px-7 py-10">
+        <h1 class="text-4xl font-bold text-pacamara-dark dark:text-white mb-8">Featured Projects</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            {featuredProjects.map(project => (
+                <ProjectCard project={project} />
+            ))}
+        </div>
+
+        <h2 class="text-3xl font-bold text-pacamara-dark dark:text-white mb-8">Other Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {otherProjects.map(project => (
+                <ProjectCard project={project} />
+            ))}
+        </div>
+    </section>
+</Base> 
