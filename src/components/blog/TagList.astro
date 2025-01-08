@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all unique tags from blog posts
+const posts = await getCollection('blog');
+const tags = [...new Set(posts.flatMap(post => post.data.tag))].sort();
+
+const { activeTag } = Astro.props;
+---
+<div class="flex flex-wrap gap-3 mb-8">
+    <a 
+        href="/blog"
+        class={`text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full py-3 px-5 
+        ${!activeTag ? 'bg-pacamara-accent text-white' : 'text-pacamara-secondary hover:bg-pacamara-accent hover:text-white hover:border-pacamara-accent'} 
+        transition-all duration-300`}
+    >
+        All
+    </a>
+    {tags.map(tag => (
+        <a 
+            href={`/blog/tag/${tag}`}
+            class={`text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full py-3 px-5 
+            ${activeTag === tag ? 'bg-pacamara-accent text-white' : 'text-pacamara-secondary hover:bg-pacamara-accent hover:text-white hover:border-pacamara-accent'} 
+            transition-all duration-300`}
+        >
+            {tag}
+        </a>
+    ))}
+</div> 

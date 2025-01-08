@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import Post from "../../../components/blog/Post.astro";
+import TagList from "../../../components/blog/TagList.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+    const tags = [...new Set(posts.flatMap(post => post.data.tag))];
+    
+    return tags.map(tag => ({
+        params: { tag },
+        props: {
+            posts: posts.filter(post => 
+                post.data.tag.includes(tag)
+            ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+        }
+    }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<Base>
+    <section class="container mx-auto max-w-screen-lg px-7 py-10">
+        <TagList activeTag={tag} />
+        
+        {posts.map((post, index) => (
+            <Post postData={post} num={index} />
+        ))}
+    </section>
+</Base> 
