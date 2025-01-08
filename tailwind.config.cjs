@@ -18,7 +18,7 @@ module.exports = {
 				'pacamara-primary': '#003049',
 				'pacamara-secondary': '#B2A4FF',
 				'pacamara-accent': '#FFB4B4',
-				'pacamara-dark': '#000E14',
+				'pacamara-dark': '#282A36',
 				'pacamara-white': '#ffffff',
 			},
 			aspectRatio: {

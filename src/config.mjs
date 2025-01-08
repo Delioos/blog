@@ -1,6 +1,6 @@
 export default {
-    title: "Delioos ",
-    titleSuffix: " | Blog",
+    title: "Home",
+    titleSuffix: " • Delioos",
     description: "The journey of a modern explorer",
     defaultOgImage: "./defaultog.jpg",
     latestPosts: 3,
