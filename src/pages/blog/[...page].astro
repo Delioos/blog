@@ -4,10 +4,16 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import config from '../../config.mjs';
 
-
 import Base from "../../layouts/Base.astro";
 import Post from "../../components/blog/Post.astro";
 import TagList from "../../components/blog/TagList.astro";
+
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const initialPosts = allPosts.slice(0, config.postsPerPage);
+const remainingPosts = allPosts.slice(config.postsPerPage);
 
 export async function getStaticPaths({ paginate }: {
   paginate: (data: CollectionEntry<'blog'>[], options: { pageSize: number }) => GetStaticPathsResult
@@ -20,7 +26,6 @@ export async function getStaticPaths({ paginate }: {
   return paginate(blogEntries, { pageSize: config.postsPerPage });
 }
 
-
 type Props = {
 	page: Page<CollectionEntry<'blog'>>;
 };
@@ -32,17 +37,43 @@ const { page } = Astro.props;
     <section class="container mx-auto max-w-screen-lg px-7 py-10">
         <TagList />
         
-        {
-            page.data.map((post, index) => {
-                return <Post postData={post} num={index} />;
-            })
-        }
+        <div id="posts-container">
+            {
+                initialPosts.map((post, index) => {
+                    return <Post postData={post} num={index} />;
+                })
+            }
+        </div>
+
+        <div id="remaining-posts" class="hidden">
+            {
+                remainingPosts.map((post, index) => {
+                    return <Post postData={post} num={index + config.postsPerPage} />;
+                })
+            }
+        </div>
         
         <div class="flex flex-row justify-center gap-7">
-            {page.url.prev ? <a href={page.url.prev} class="text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full py-3 px-5 text-pacamara-secondary hover:bg-pacamara-accent hover:border-pacamara-accent hover:text-pacamara-white transition-all duration-300">Previous</a> : null}
-            {page.url.next ? <a href={page.url.next} class="text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full py-3 px-5 text-pacamara-secondary hover:bg-pacamara-accent hover:border-pacamara-accent hover:text-pacamara-white transition-all duration-300">Next</a> : null}
+            {remainingPosts.length > 0 && 
+                <button id="loadMore" class="text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full py-3 px-5 text-pacamara-secondary hover:bg-pacamara-accent hover:border-pacamara-accent hover:text-pacamara-white transition-all duration-300">
+                    View More
+                </button>
+            }
         </div>
     </section>
-
-    
 </Base>
+
+<script>
+    const loadMoreButton = document.getElementById('loadMore');
+    const remainingPosts = document.getElementById('remaining-posts');
+    const postsContainer = document.getElementById('posts-container');
+
+    loadMoreButton?.addEventListener('click', () => {
+        if (remainingPosts && postsContainer) {
+            // Move remaining posts into the main container
+            postsContainer.insertAdjacentHTML('beforeend', remainingPosts.innerHTML);
+            // Remove the button since all posts are now shown
+            loadMoreButton.remove();
+        }
+    });
+</script>
