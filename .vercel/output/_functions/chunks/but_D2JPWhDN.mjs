@@ -1,0 +1,40 @@
+import { F as Fragment, _ as __astro_tag_component__, e as createVNode } from './astro/server_DuJbMrHn.mjs';
+import 'clsx';
+
+const frontmatter = {
+  "title": "Bachelor in Computer Science (BUT)",
+  "company": "IUT Charlemagne - University of Lorraine",
+  "location": "Nancy, France",
+  "startDate": "2021-09-01T00:00:00.000Z",
+  "endDate": "2024-06-30T00:00:00.000Z",
+  "type": "education",
+  "description": ["Graduated with honors from the Bachelor Universitaire de Technologie (BUT) in Computer Science, with a specialization in Software Engineering", "Received faculty recommendation for pursuing advanced studies in Master's or Engineering programs", "Developed strong foundations in software development, algorithms, and system design through practical projects and theoretical coursework", "Gained hands-on experience with various programming languages and frameworks through intensive project-based learning such as C, Java, Scala, Js, MySQL and MongoDB", "Participated in collaborative team projects simulating real-world software development environments"]
+};
+function getHeadings() {
+  return [];
+}
+function _createMdxContent(props) {
+  return createVNode(Fragment, {});
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? createVNode(MDXLayout, {
+    ...props,
+    children: createVNode(_createMdxContent, {
+      ...props
+    })
+  }) : _createMdxContent();
+}
+
+const url = "src/content/career/but.mdx";
+const file = "/Users/roule/Code/Perso/blog/src/content/career/but.mdx";
+const Content = (props = {}) => MDXContent({
+  ...props,
+  components: { Fragment: Fragment, ...props.components, },
+});
+Content[Symbol.for('mdx-component')] = true;
+Content[Symbol.for('astro.needsHeadRendering')] = !Boolean(frontmatter.layout);
+Content.moduleId = "/Users/roule/Code/Perso/blog/src/content/career/but.mdx";
+__astro_tag_component__(Content, 'astro:jsx');
+
+export { Content, Content as default, file, frontmatter, getHeadings, url };

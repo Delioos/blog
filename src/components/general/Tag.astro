@@ -3,10 +3,13 @@ const { tags } = Astro.props;
 ---
 {tags && tags.length > 0 && 
     <div class="flex flex-row gap-2 flex-wrap">
-        {tags.map(tag => (
-            <span class="group text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full flex flex-row content-center items-center h-[34px] px-3 text-pacamara-secondary">
+        {tags.map((tag: string) => (
+            <a 
+                href={`/blog/tag/${tag.toLowerCase()}`}
+                class="group text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full flex flex-row content-center items-center h-[34px] px-3 text-pacamara-secondary hover:bg-pacamara-accent hover:text-white hover:border-pacamara-accent transition-all duration-300"
+            >
                 <span>{tag}</span>
-            </span>
+            </a>
         ))}
     </div>
 }

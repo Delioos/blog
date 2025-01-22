@@ -1,0 +1,41 @@
+import { c as createAstro, a as createComponent, r as renderTemplate, m as maybeRenderHead, b as addAttribute, d as renderComponent } from './astro/server_DuJbMrHn.mjs';
+import 'kleur/colors';
+import 'clsx';
+import { $ as $$Tag } from './Tag_CAwToemE.mjs';
+
+const $$Astro$1 = createAstro("https://www.delioos.xyz");
+const $$PublishDate = createComponent(($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
+  Astro2.self = $$PublishDate;
+  const { date } = Astro2.props;
+  return renderTemplate`${maybeRenderHead()}<small class="
+        text-pacamara-primary/50 font-pacamara-space tracking-widest transition-all duration-300 text-[16px]
+        dark:text-white/40
+    "> ${date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })} </small>`;
+}, "/Users/roule/Code/Perso/blog/src/components/blog/PublishDate.astro", undefined);
+
+const $$Astro = createAstro("https://www.delioos.xyz");
+const $$Post = createComponent(($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
+  Astro2.self = $$Post;
+  const { postData, num } = Astro2.props;
+  return renderTemplate`${maybeRenderHead()}<article class="
+        group
+        lg:mb-[50px] mb-10 last:mb-0 prose lg:prose-xl max-w-none 
+        prose-headings:font-bold prose-headings:text-pacamara-accent 
+        prose-p:text-pacamara-primary/70 lg:prose-p:text-[18px] prose-p:transition-all prose-p:duration-300 
+        prose-a:font-semibold prose-a:text-pacamara-dark prose-a:hover:text-pacamara-pink prose-a:no-underline prose-a:transition-all prose-a:duration-300
+        prose-strong:font-normal 
+        prose-headings:font-pacamara-space prose-h2:mb-7 prose-h2:mt-0
+        prose-img:mt-0 prose-img:mb-0
+        dark:prose-a:text-white dark:prose-a:hover:text-pacamara-accent dark:prose-p:text-white/70
+    "> <div class="grid grid-cols-1 lg:grid-cols-[200px_auto] md:grid-cols-[200px_auto] gap-10 items-center"> <div class="post_image"> <!--
+            <a href={ '/blog/' + postData.slug }>
+                <Image src={postData?.data?.image ? postData.data.image : defaultImage} width="750" alt={ postData.title + "Thumbnail"} class:list={[ 'rounded-[15px] image-shine object-cover h-[200px]', { "rotate-2": isOdd, "-rotate-2": !isOdd } ]}  />
+            </a>
+	SHOULD FIX THIS BUT ITSBROKEN AHH
+	I left the div to avoid breaking the layout btw
+		--> </div> <div class="post_intro"> <h2> <a${addAttribute("/blog/" + postData.slug, "href")} class="text-pacamara-dark hover:text-pacamara-accent"> ${postData.data.title} </a> </h2> <p> ${postData.data.intro} </p> <p class="flex flex-row flex-wrap gap-5 items-center mt-5 group-last:mb-0"> ${renderComponent($$result, "Tag", $$Tag, { "tags": postData.data.tag })} ${renderComponent($$result, "PublishDate", $$PublishDate, { "date": postData.data.pubDate })} </p> </div> </div> <div class="w-full h-[1px] mt-10 lg:mt-[50px] overflow-hidden gradient-line group-last:hidden"></div> </article>`;
+}, "/Users/roule/Code/Perso/blog/src/components/blog/Post.astro", undefined);
+
+export { $$Post as $, $$PublishDate as a };
