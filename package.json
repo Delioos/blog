@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "bunx --bun astro dev",
-    "start": "astro dev",
+    "start": "bun run dist/server/entry.mjs",
     "build": "bunx --bun astro build",
     "preview": "bunx --bun astro preview",
     "astro": "astro"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "@astrojs/mdx": "^1.0.0",
+    "@astrojs/node": "^7.0.4",
     "@astrojs/rss": "^2.4.3",
     "@astrojs/tailwind": "^5.0.0",
     "@tailwindcss/typography": "^0.5.9",
