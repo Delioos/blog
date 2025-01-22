@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 const { entry } = Astro.props as { entry: CollectionEntry<'blog'> };
 //entry.data.type = "blog";
 
+import { Image } from 'astro:assets'
 
 import Base from "../../layouts/Base.astro";
 import AuthorInfo from "../../components/blog/AuthorInfo.astro";

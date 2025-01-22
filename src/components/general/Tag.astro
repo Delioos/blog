@@ -3,7 +3,7 @@ const { tags } = Astro.props;
 ---
 {tags && tags.length > 0 && 
     <div class="flex flex-row gap-2 flex-wrap">
-        {tags.map((tag: string) => (
+        {tags.map(tag => (
             <span class="group text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full flex flex-row content-center items-center h-[34px] px-3 text-pacamara-secondary">
                 <span>{tag}</span>
             </span>
