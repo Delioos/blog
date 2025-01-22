@@ -1,12 +1,20 @@
 ---
-import { Icon } from 'astro-icon'
+import { Image } from 'astro:assets'
 
+type SocialType = 'github' | 'twitter';
 const { socialUrl=false, socialType } = Astro.props;
+
+// You'll need to import your icon images and map them
+const icons: Record<SocialType, string> = {
+  github: '/github.svg',
+  twitter: '/twitter.svg',
+  // Add other social icons as needed
+}
 ---
 {socialUrl &&
 <li>
     <a href={socialUrl} target="_blank" aria-label={socialType + "link"}>
-        <Icon name={socialType} class="w-auto h-[15px] transition-all duration-300 fill-pacamara-primary/60 hover:fill-pacamara-secondary dark:fill-pacamara-accent dark:hover:fill-pacamara-secondary" />
+        <img src={icons[socialType as SocialType]} alt={socialType} class="w-auto h-[15px] transition-all duration-300 fill-pacamara-primary/60 hover:fill-pacamara-secondary dark:fill-pacamara-accent dark:hover:fill-pacamara-secondary" />
     </a>
 </li>
 }
