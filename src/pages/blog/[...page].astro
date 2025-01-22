@@ -32,8 +32,15 @@ type Props = {
 
 const { page } = Astro.props;
 
+const postData = {
+    data: {
+        title: "Blog",
+        description: "Latest articles and updates"
+    }
+};
+
 ---
-<Base>
+<Base postData={postData}>
     <section class="container mx-auto max-w-screen-lg px-7 py-10">
         <TagList />
         

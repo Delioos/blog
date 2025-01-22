@@ -30,9 +30,16 @@ const { Content } = await entry.render();
 
 // Get author data
 const author = entry.data.author ? await getEntry(entry.data.author) : null;
+
+const postData = {
+    data: {
+        title: "Blog",
+        description: "All blog posts"
+    }
+};
 ---
 
-<Base postData={entry}>
+<Base postData={postData}>
     <article class="container mx-auto max-w-screen-lg px-7 py-10">
         <h1 class="text-4xl font-bold mb-4">{entry.data.title}</h1>
         <div class="flex items-center gap-4 mb-8">

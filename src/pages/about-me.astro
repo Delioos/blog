@@ -4,9 +4,17 @@ import Base from '../layouts/Base.astro';
 
 const aboutMe = await getEntry('page', 'about-me');
 const { Content } = await aboutMe.render();
+
+const postData = {
+    data: {
+        title: aboutMe.data.title,
+        description: aboutMe.data.intro
+    }
+};
+
 ---
 
-<Base>
+<Base postData={postData}>
     <article class="container mx-auto max-w-screen-lg px-7 py-10">
         <div class="prose lg:prose-xl max-w-none
             prose-headings:font-bold prose-headings:text-pacamara-accent 
@@ -19,10 +27,14 @@ const { Content } = await aboutMe.render();
             <h1 class="text-4xl font-bold text-pacamara-dark dark:text-white mb-4">
                 {aboutMe.data.title}
             </h1>
-            <p class="text-xl text-pacamara-secondary mb-8">
-                {aboutMe.data.intro}
-            </p>
+            <div class="flex flex-row gap-4 items-center ">
+                <img src="/delioos.jpg" alt="Delioos" class="w-20 rounded-xl">
+                <p class="text-xl text-pacamara-secondary mb-8">
+                    {aboutMe.data.intro}
+                </p>
+            </div>
             <Content />
+            <br>
         </div>
     </article>
 </Base>

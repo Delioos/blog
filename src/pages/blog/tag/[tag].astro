@@ -66,9 +66,16 @@ console.log("7. Posts to display:", posts?.map(p => ({
     tags: p.data.tag,
     title: p.data.title
 })));
+
+const postData = {
+    data: {
+        title: `Posts tagged "${tag}"`,
+        description: `All blog posts tagged with ${tag}`
+    }
+};
 ---
 
-<Base>
+<Base postData={postData}>
     <section class="container mx-auto max-w-screen-lg px-7 py-10">
         <TagList activeTag={tag} />
         
