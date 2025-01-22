@@ -1,15 +1,10 @@
 ---
-const { postData, num } = Astro.props;
-import { Image } from 'astro:assets'
+const { postData } = Astro.props;
 import PublishDate from "./PublishDate.astro";
 import Tag from "../general/Tag.astro";
-// default image if no image added
-import defaultImage from "../../assets/default.jpg";
-
-const isOdd = num % 2;
 ---
 <article
-    class="
+    class= "
         group
         lg:mb-[50px] mb-10 last:mb-0 prose lg:prose-xl max-w-none 
         prose-headings:font-bold prose-headings:text-pacamara-accent 

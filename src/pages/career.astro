@@ -105,7 +105,7 @@ const observer = new IntersectionObserver((entries) => {
                 // Scroll the link into view within the TOC container
                 const tocContainer = document.querySelector('.toc-scrollbar');
                 if (tocContainer) {
-                    const linkTop = link.offsetTop;
+                    const linkTop = link.getBoundingClientRect().top;
                     const containerHeight = tocContainer.clientHeight;
                     const scrollOffset = linkTop - containerHeight / 2;
                     tocContainer.scrollTo({
@@ -130,7 +130,7 @@ document.querySelectorAll('#toc a').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         const href = link.getAttribute('href');
-        document.querySelector(href)?.scrollIntoView({
+        document.querySelector(href!)?.scrollIntoView({
             behavior: 'smooth'
         });
     });

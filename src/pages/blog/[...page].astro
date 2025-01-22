@@ -18,9 +18,7 @@ const remainingPosts = allPosts.slice(config.postsPerPage);
 export async function getStaticPaths({ paginate }: {
   paginate: (data: CollectionEntry<'blog'>[], options: { pageSize: number }) => GetStaticPathsResult
 }): Promise<GetStaticPathsResult> {
-  const blogEntries = (await getCollection('blog', ({ data }) => {
-    return true;
-  })).sort(
+  const blogEntries = (await getCollection('blog')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
   );
   return paginate(blogEntries, { pageSize: config.postsPerPage });
@@ -29,8 +27,6 @@ export async function getStaticPaths({ paginate }: {
 type Props = {
 	page: Page<CollectionEntry<'blog'>>;
 };
-
-const { page } = Astro.props;
 
 ---
 <Base>
