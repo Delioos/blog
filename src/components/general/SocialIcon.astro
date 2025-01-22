@@ -1,20 +1,43 @@
 ---
-import { Image } from 'astro:assets'
+import Facebook from '../icons/facebook.astro';
+import Github from '../icons/github.astro';
+import Instagram from '../icons/instagram.astro';
+import Pinterest from '../icons/pinterest.astro';
+import Twitter from '../icons/twitter.astro';
+import Messenger from '../icons/messenger.astro';
+import Dribbble from '../icons/dribbble.astro';
+import Mastodon from '../icons/mastodon.astro';
+import Skype from '../icons/skype.astro';
 
-type SocialType = 'github' | 'twitter';
-const { socialUrl=false, socialType } = Astro.props;
+type SocialType = 'github' | 'twitter' | 'facebook' | 'instagram' | 'pinterest' | 'messenger' | 'dribbble' | 'mastodon' | 'skype';
 
-// You'll need to import your icon images and map them
-const icons: Record<SocialType, string> = {
-  github: '/github.svg',
-  twitter: '/twitter.svg',
-  // Add other social icons as needed
-}
+const { socialUrl = false, socialType } = Astro.props;
+
+// Map social types to their components
+const socialComponents: Record<SocialType, any> = {
+  github: Github,
+  twitter: Twitter,
+  facebook: Facebook,
+  instagram: Instagram,
+  pinterest: Pinterest,
+  messenger: Messenger,
+  dribbble: Dribbble,
+  mastodon: Mastodon,
+  skype: Skype
+};
+
+const SocialComponent = socialComponents[socialType as SocialType];
 ---
-{socialUrl &&
-<li>
-    <a href={socialUrl} target="_blank" aria-label={socialType + "link"}>
-        <img src={icons[socialType as SocialType]} alt={socialType} class="w-auto h-[15px] transition-all duration-300 fill-pacamara-primary/60 hover:fill-pacamara-secondary dark:fill-pacamara-accent dark:hover:fill-pacamara-secondary" />
+
+{socialUrl && (
+  <li>
+    <a 
+      href={socialUrl} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      aria-label={`${socialType} link`}
+    >
+      <SocialComponent />
     </a>
-</li>
-}
+  </li>
+)}
