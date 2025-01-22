@@ -3,18 +3,18 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "bunx --bun astro dev",
-    "start": "bun run dist/server/entry.mjs",
-    "build": "bunx --bun astro build",
-    "preview": "bunx --bun astro preview",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^4.0.7",
-    "@astrojs/node": "^9.0.1",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/tailwind": "^5.1.5",
+    "@astrojs/vercel": "^8.0.2",
     "@iconify/json": "^2.2.298",
     "@tailwindcss/typography": "^0.5.16",
     "@vercel/analytics": "^1.4.1",
