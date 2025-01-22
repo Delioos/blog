@@ -13,18 +13,22 @@ const { activeTag } = Astro.props;
 <div class="flex flex-wrap gap-3 mb-8">
     <a 
         href="/blog"
-        class={`text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full py-3 px-5 
-        ${!activeTag ? 'bg-pacamara-accent text-white' : 'text-pacamara-secondary hover:bg-pacamara-accent hover:text-white hover:border-pacamara-accent'} 
-        transition-all duration-300`}
+        class={`text-[16px] border-[1px] leading-none rounded-full py-3 px-5 transition-all duration-300
+        ${!activeTag 
+            ? 'bg-pacamara-accent text-white border-pacamara-accent' 
+            : 'bg-transparent border-pacamara-secondary text-pacamara-secondary hover:bg-pacamara-accent hover:text-white hover:border-pacamara-accent'
+        }`}
     >
         All
     </a>
     {tags.map(tag => (
         <a 
             href={`/blog/tag/${tag.toLowerCase()}`}
-            class={`text-[16px] bg-transparent border-pacamara-secondary border-[1px] leading-none rounded-full py-3 px-5 
-            ${activeTag?.toLowerCase() === tag.toLowerCase() ? 'bg-pacamara-accent text-white' : 'text-pacamara-secondary hover:bg-pacamara-accent hover:text-white hover:border-pacamara-accent'} 
-            transition-all duration-300`}
+            class={`text-[16px] border-[1px] leading-none rounded-full py-3 px-5 transition-all duration-300
+            ${activeTag?.toLowerCase() === tag.toLowerCase()
+                ? 'bg-pacamara-accent text-white border-pacamara-accent'
+                : 'bg-transparent border-pacamara-secondary text-pacamara-secondary hover:bg-pacamara-accent hover:text-white hover:border-pacamara-accent'
+            }`}
         >
             {tag}
         </a>
