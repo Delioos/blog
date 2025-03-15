@@ -1,21 +1,80 @@
 ---
-title: Smol post and reflection on the purpose
-pubDate: 2024-09-07
-intro: grind isn't sexy
-tag: ["progress"] 
-author: delioos
+title: "Uniswap v4: Hooks, Pools, and More"
+pubDate: 2023-09-05
+intro: "A comprehensive guide to the latest version of Uniswap"
+tag: ["DeFi", "Technology"] 
+author: delioos 
 
 ---
-Smol post today.
 
-- Heavy progress, built a telegram  bot (can't disclose much rn but I will make a public version) for approximately 6 hours.
-- Hit the gym with fren
-- Studied financial market for 1h30
-- Read about the notion of liberty in the  spiritual life of a christian monk.
+## **Target Audience**
 
+Before starting, I want to note that this article is aimed at readers with a relatively solid foundation in DeFi.
 
-It's interesting to see that hard work is key for many people. Not that the goal is everything, but rather that the journey is paramount. However, without purpose, work is nothing short of torture. I relate strongly to this because building for myself and visualising the impact on my future has brought me joy. We must follow a vision or purpose, but in the end, when this purpose is achieved, the most memorable part is the journey itself. If Jesus were simply suffering for the sake of it, Christians would merely worship outright masochism. But the suffering and pain endured were borne to absolve the sins of all humanity. The beauty resides in the sacrifice, its finality, and its effect on others
+## **Uni v3**
 
-**Purpose is everything** but without hard work, it's just a bottomless pit that risks emptying the souls of inactive dreamers, so make the hard work an easy process.
+If you want to learn more about the current version of Uniswap, I recommend the excellent article by [PetitprinceETH](https://medium.com/u/2159614ef12c?source=post_page---user_mention--9047c5ca100---------------------------------------) available [here](https://medium.com/@PetitprinceETH/uni-v3-comprendre-la-force-des-ranges-6c073438767a).
 
-*dreams comes true when we stop sleeping*
+## **Uni v4**
+
+On June 13, 2023, Uniswap shared its vision for v4 (in this [post](https://blog.uniswap.org/uniswap-v4)). I'll give you an overview of this major upcoming update, which significantly impacts the current liquidity system.
+
+# **HOOKS: MORE CUSTOMIZED POOLS**
+
+One of the major announcements is the introduction of hooks, smart contracts linked to our pool that can interact during its lifecycle (before or after a token exchange, for example).
+
+This module is the keystone of potential innovations:
+
+- Dynamic fees based on volatility or other data
+- On-chain limit orders (perfect for DCA price zones without monitoring the asset 24/7)
+- Deposit of liquidity outside the range in lending protocols
+- Custom on-chain oracles
+- LP fees can be automatically reinvested in positions
+- Redistribution of internalized MEV profits to liquidity providers
+- A time-weighted average market maker
+
+# **Pool Optimization and Flexibility**
+
+## **Dynamic Fees**
+
+In the aim of providing even more flexibility to liquidity providers, Uniswap proposes adaptive fees based on pair volatility. This avoids closing and reopening a position if the asset's status changes. Currently, we must set the fee rate when creating the pool (0.01 / 0.05 / 0.3 / 1%, with an indication of the % of pools on each fee scale. We tend to say it's 0.01 / 0.05 for stable-stable, 0.05 / 0.3 for known assets, and 1% for more degen pairs).
+
+## **Automatic Reinvestment of Gains**
+
+Once again emphasizing optimization, the unicorn proposes "autocompound" of fees earned through the liquidity we provide: rather than claiming our due and modifying our position, the protocol will handle real-time reinvestment. The total gain is considerable since there are fewer position change fees, and we earn more in collected fees because the provided liquidity keeps increasing.
+
+## **Custom Oracles**
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*Bz9sdLmrcRaQiS2LyG1r_Q.png)
+
+The hooks would also bring the possibility to integrate new oracles (support for transferring info between blockchain and external sources). This means developers can integrate their own logic to obtain price data or other information, possibly from multiple sources or according to their own algorithms, offering more flexibility and potential for innovation.
+
+# **Architecture Modification**
+
+## **Lower Cost Pools**
+
+Fee reduction using a particular programming structure: the **singleton.**
+
+In its simplest form, the singleton architecture is a design method that ensures only one instance of an entity exists. Here, this applies to pools, and more specifically to the linked smart contract. In v3, each provider has a smart contract per pool. Thanks to the implementation of a single smart contract, overloaded by hooks, overall fees can be reduced.
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*o-jvXRaEOsiWPTe4r48UrQ.png)
+
+Singleton module diagram
+
+(here, the **Object** in the diagram is the new pool smart contract)
+
+To dive a bit deeper into the tech, we can talk about the addition of "flash accounting".
+
+In the general case, a transaction means token transfer from address A to address B. To proceed with this exchange, tokens are transferred from the user's wallet to the pool, then from the pool to the recipient. Each transfer is recorded and validated in the chain, consuming a significant amount of gas.
+
+In flash accounting, rather than actually transferring assets at each step, the system tracks net asset balances. If we perform multiple transactions in a single block, the system only transfers the net balance, so it could be smaller (or potentially zero if we buy and sell the same amount) than the total of cumulative individual transactions.
+
+However, the tech needs to be proven (precise and secure) since this abstraction lightens the chain but poses a dilemma regarding traceability precision... However, this doesn't remove the trustless aspect as all smart contracts remain open source, so no worries on that front.
+
+## **Related License Change**
+
+Once again, Uniswap chooses to retain ownership and prohibits commercial use by forking their protocol for 4 years (maximum) through a "Business Source License 1.1". Outside of a change made by Uniswap Governance or Labs, at the end of this period, the code will become open source under GPL.
+
+# **My Analysis**
+
+The DeFi unicorn once again positions itself as a leader in decentralized protocol innovation and focuses on user experience and flexibility. Although becoming a liquidity provider requires relatively solid technical knowledge, I think these developments are another step toward recognizing DeFi as a serious and stable alternative to tradfi, for an increasingly broad audience.

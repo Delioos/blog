@@ -1,30 +1,76 @@
 ---
-title: "Solana, Monet, and Code: A Day of Diverse Learning"
-pubDate: 2024-09-11
-intro: "Balancing tech skills with artistic appreciation"
-tag: ["progress"] 
-author: "delioos"
+title: "Main flaws and attacks in crypto"
+pubDate: 2024-12-05
+intro: "A guide for developers"
+tag: ["Technology", "Security"] 
+author: delioos 
+
 ---
+## Preface
 
-Another day, another smol post packed with progress:
+One of the core values of cryptocurrency and blockchain technology is decentralization. While traditional financial systems rely on human oversight at every level to validate operations and detect anomalies, the cypherpunk vision promotes code-based controls. This approach empowers individuals to truly own their assets without borders or intermediaries.
 
-- Kicked off day one of 60 days of Solana. The journey of a thousand miles begins with a single  "hello world"
+However, this shift doesn't eliminate human error—it concentrates it in the hands of developers. In recent years, we've witnessed numerous security incidents resulting in substantial losses. In 2024 alone, over **$2.3 billion** were lost to hacks and exploits, with DeFi protocols being particularly vulnerable.
 
-- Finished the novel about Monet. 
+## Essential Security Patterns for Developers
 
-- Pushed code like there's no tomorrow. The git log is looking healthier than my sleep schedule.
+### Access Control with Owner Pattern
 
-- Rustlings: tackled one exercise per chapter. Rust is starting to feel less like wrestling and more like dancing.
+The `onlyOwner` modifier is a fundamental security pattern in smart contract development. It restricts sensitive functions to authorized addresses, making it essential for administrative operations. Common use cases include updating protocol parameters, managing access controls, and implementing emergency protocol pauses.
 
-- Dove into 2 LeetCode patterns. 
+Here's a basic implementation:
 
-- Anki'd my way through some Italian. 
+```solidity
+modifier onlyOwner() {
+    require(msg.sender == owner, "Not authorized");
+    _;
+}
 
-- Devoured another article by GP. 
+```
 
-- Made solid progress on the subscribe manager:
-  - Implemented `get_subscribers(wallet: String) -> Vec<i32>`. 
-  - Pondering whether to denormalize for that sweet performance boost. Future me problem?
+### Reentrancy Protection
 
+Reentrancy attacks remain one of the most common vulnerabilities in smart contracts. The infamous **DAO hack** of 2016 exploited this vulnerability, resulting in a loss of **$60 million**. Any function that sends ETH, interacts with external contracts, or updates state after external calls must implement reentrancy protection to prevent exploitation.
 
-_Past generations studied the art of war and politics to bring peace, so their sons could study science and finance to create generational wealth, so their sons could become writers and painters. The beauty of today's world is that this cycle is achievable in a single lifespan. Moreover, 'war' - finance and science - and a certain form of art can cohabitate through software engineering._
+### Flash Loan Considerations
+
+Flash loans have introduced powerful new attack vectors in DeFi protocols. These uncollateralized loans can be used to manipulate price oracles, governance votes, and liquidity pools. Developers can protect their protocols by implementing Time-Weighted Average Price (TWAP) oracles, voting delays, and using multiple price feed sources for critical operations.
+
+### Proxy Patterns for Upgradability
+
+While smart contracts are immutable by default, proxy patterns enable controlled upgradability. The [**EIP-1967**](https://eips.ethereum.org/EIPS/eip-1967) standard provides a robust framework for upgradeable contracts, giving teams the ability to fix security vulnerabilities, add new features, and optimize gas costs without compromising security.
+
+## Common Attack Vectors
+
+Beyond specific smart contract vulnerabilities, there exists a class of generalized attacks that impact users across the entire blockchain ecosystem. These attacks don't necessarily exploit code flaws but rather leverage blockchain mechanics and market dynamics. When building a protocol or managing significant liquidity positions, understanding these attack patterns becomes crucial for protecting both your protocol and its users.
+
+### Front-running
+
+Front-running in blockchain differs significantly from traditional markets. Searchers deploy sophisticated infrastructure combining high-performance contracts and monitoring systems that run continuously. These systems analyze the mempool in real-time, looking for profitable opportunities in user transactions. When identified, they automatically broadcast competing transactions with higher gas fees to ensure their transaction gets processed first.
+
+The **Curve Finance** incident perfectly illustrates the positive potential of front-running. White hat hacker **c0ffeebabe.eth** had monitoring systems in place that detected a malicious transaction targeting a vulnerability. Their searcher contract automatically deployed a protective transaction with higher gas fees, effectively preventing the attack and safeguarding user funds. This demonstrates how the same mechanics used in harmful front-running can also serve as a defense mechanism.
+
+### Sandwich Attacks
+
+Sandwich attacks combine front-running and back-running to profit from large trades. Attackers place a buy order just before the target transaction and a sell order immediately after, capitalizing on the price impact.
+
+Several solutions exist to protect against these attacks. [MEV Blocker](https://meblocker.io/), developed by CoWSwap, acts as a protective relay that ensures fair ordering of transactions while preventing sandwich attacks.
+
+Another approach is demonstrated by the [reth-private-transaction](https://github.com/Quertyy/reth-private-transaction) project, which extends the Reth client with private transaction capabilities. By implementing the `eth_sendPrivateRawTransaction` RPC method, users can bypass the public mempool and submit transactions directly to trusted block builders like Titan, Beaverbuild, and rsync-builder. This significantly reduces the risk of being sandwiched since transactions remain private until they are included in a block.
+
+### Just-in-Time (JIT) Liquidity
+
+JIT liquidity manipulation represents a sophisticated market manipulation technique. Attackers can artificially inflate asset prices and create false impressions of market depth. This often results in unexpected slippage for traders and can be particularly damaging during large transactions or when protocols rely on spot prices for critical operations.
+
+## Bonus tip: avoid leaking environment variables!
+
+Security in Web3 extends beyond smart contract development. Proper key management is crucial - never commit private keys or environment variables to version control. Implement thorough `.gitignore` configurations, look for ci/cd pipelines that can help you avoid leaking secrets, and use tools like [git-secrets](https://github.com/awslabs/git-secrets) to detect secrets in your git history.
+Blackhats are running crawlers to find secrets on every public repo, forgetting to check if you leaked anything might be a costly mistake.
+
+## Training Resources
+
+The Web3 security landscape is constantly evolving, and several platforms offer excellent training opportunities. [Ethernaut](https://ethernaut.openzeppelin.com/) provides interactive CTF challenges that simulate real-world vulnerabilities in a safe environment. For comprehensive security training, [Node Guardians](https://nodeguardians.io/) offers structured learning paths with increasing complexity.
+
+Professional developers should also familiarize themselves with security tools like [Tenderly](https://tenderly.co/) for transaction monitoring, [OpenZeppelin Defender](https://defender.openzeppelin.com/) for automated security practices, and [Slither](https://github.com/crytic/slither) for static analysis of smart contracts.
+
+Remember that security is an ongoing process, not a one-time achievement. Stay updated with the latest security practices and always assume your code will be targeted by sophisticated attackers.

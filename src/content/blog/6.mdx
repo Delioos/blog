@@ -1,26 +1,74 @@
 ---
-title: "Progress and Reflections: A Day of Accomplishments"
-pubDate: 2024-09-12
-intro: "From drafts to job insights, every step counts"
-tag: ["progress"] 
-author: "delioos"
+title: "Testing: the art of code quality"
+pubDate: 2024-12-05
+intro: "Motivations and thoughts on testing"
+tag: ["Development", "Best Practices"] 
+author: delioos 
+
 ---
+## Why and Where to Start
 
-Another day of progress, and I'm feeling accomplished:
+Testing is often perceived as a tedious task, yet it stands as one of the most crucial pillars of software development. While writing tests might feel like extra work upfront, it's an investment that consistently proves its worth over time. Understanding how to approach testing effectively can transform your development process from reactive to proactive.
 
-- Finished a draft of the wallet tracker. It's coming together nicely, and I'm excited to refine it further.
+## Core Motivations
 
-- Read "Get a Job" de Thuna (cool commmunity made by the goat on how to make it to the corpo realm. It provided some valuable insights that I already used (writing a gud cv is a great start)
+The implementation of a robust testing strategy serves multiple essential purposes. First and foremost, it acts as your first line of defense against bugs, catching issues before they can reach production environments. Beyond bug prevention, tests significantly lighten the maintenance burden by giving developers the confidence to refactor and improve code without fear of breaking existing functionality.
 
-- Caught up on some emails. 
+When properly integrated into your workflow, tests become the backbone of your continous integration / development (CI/CD) pipeline, enabling automated update of your codebase with confidence 0 stress when working with multiple actors on a single project. Perhaps less obviously, but equally valuable, tests serve as living documentation - they provide practical examples of how code should behave, making it easier for new team members to understand the system's intended functionality.
 
-- Explored bullish projects that I can add to my CV. Definitely lacking huge accomplishments in the web3 space, hackaton will be on top of the experience in a few months I hope.
+**Quick Tip:** While tests can effectively document code behavior, they shouldn't be your only form of documentation. Think of them as complementary to your main documentation strategy, not a replacement for proper user scenarios and technical specifications.
 
-- Read another article by gp. 
+## Essential Tools
 
-- Studied one LeetCode pattern. Progress is progress, no matter how small!
+The testing landscape offers various tools, each suited to different ecosystems and needs. In the JavaScript/TypeScript world, [Jest](https://jestjs.io/) has emerged as the de facto standard, offering an excellent balance of features and developer experience. For blockchain development, [Foundry](https://book.getfoundry.sh/) and [Hardhat](https://hardhat.org/) have become industry standards, each bringing its own strengths to the table.
 
-- Put some work on the wallet tracker.
+## Testing Techniques
 
-Every small step adds up, and I'm looking forward to what tomorrow brings!
+### The Pillars of Well-Written Tests
 
+Great tests follow the "FIRST" principles - a framework that ensures your tests remain valuable and maintainable over time:
+
+- **Fast:** Tests should execute quickly to maintain rapid development cycles
+- **Independent:** Each test should stand on its own, free from dependencies on other tests
+- **Repeatable:** Results should remain consistent across different environments
+- **Self-validating:** Pass/fail status should be immediately clear
+- **Timely:** Tests should be written alongside the code they verify
+
+### Different Testing Approaches
+
+Testing comes in various forms, each serving a specific purpose in your quality assurance strategy:
+
+### Unit Testing
+
+Unit tests form the foundation of your testing pyramid. They verify individual components in isolation, ensuring each piece of your system functions correctly on its own. A well-written unit test suite should cover both normal usage patterns and edge cases.
+
+### Integration Testing
+
+Moving up the pyramid, integration tests verify how different components work together. These tests are crucial for catching issues that might not be apparent when testing components in isolation.
+
+### Code Coverage
+
+While not a type of test itself, code coverage measurement helps you understand how thoroughly your code is being tested. Aim for high coverage on critical paths, but remember that 100% coverage shouldn't be your goal - focus on meaningful tests rather than arbitrary metrics.
+
+## The Real Cost of Poor Testing
+
+History has shown us that inadequate testing can lead to catastrophic failures. Here are some notable examples:
+
+- **Ariane 5 Rocket Explosion (1996):** A software error resulted in a $370 million loss
+- **Ronin Bridge Hack (2022):** Insufficient testing led to a $625 million exploit
+- **Knight Capital (2012):** A trading software bug caused $440 million in losses in just 45 minutes
+- **Therac-25 (1985-1987):** Software bugs in medical equipment led to multiple fatalities
+
+## Career Opportunities in Testing
+
+### Security Research
+
+The Web3 space has created exciting opportunities for security researchers. Through platforms like [Cantina](https://cantina.xyz/), skilled researchers can participate in bug bounty programs with substantial rewards. Top performers in this field have earned well over $2 million in bounties, demonstrating the high value placed on security expertise.
+
+### Quality Assurance Engineering
+
+QA engineering offers a different pace than core development while maintaining competitive compensation. With average salaries ranging from $70,000 to $120,000 in the US, it's a career path that combines stability with growth potential. QA engineers often enjoy more predictable workflows than their development counterparts, as they're less bound by feature delivery deadlines.
+
+## Improving Your Testing Skills
+
+The journey to testing expertise is ongoing, but several resources can help you along the way. [NodeGuardians](https://nodeguardians.io/) offers an engaging way to learn smart contract testing through gamified challenges. For those interested in Web2 development, coding katas provide excellent practice in Test-Driven Development (TDD).
