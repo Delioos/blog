@@ -5,7 +5,7 @@ import icon from "astro-icon";
 
 export default defineConfig({
   integrations: [tailwind(), mdx(), icon()],
-  site: 'https://www.delioos.xyz',
+  site: 'https://delioos.xyz',
   output: 'static',
   server: {
     host: '0.0.0.0',
@@ -19,7 +19,7 @@ export default defineConfig({
       host: '0.0.0.0',
       hmr: {
         clientPort: 4321,
-        host: 'www.delioos.xyz'
+        host: 'delioos.xyz'
       }
     }
   }
