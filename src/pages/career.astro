@@ -12,23 +12,38 @@ const formatDate = (date: Date) => {
 ---
 
 <Base>
-    <div class="container mx-auto max-w-screen-xl px-7 py-6">
-        <div class="grid grid-cols-1 lg:grid-cols-[250px_auto] gap-6">
+    <section class="container mx-auto max-w-screen-xl px-6 py-16">
+        <!-- Metadata section -->
+        <div class="border-t border-brutal-gray pt-6 mb-12">
+            <div class="flex flex-wrap gap-x-12 gap-y-2 font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white">
+                <span>TYPE: Career</span>
+                <span>POSITIONS: {careers.length}</span>
+                <span>TIMELINE: Professional</span>
+                <span>STATUS: Active</span>
+            </div>
+        </div>
+        
+        <!-- Main title -->
+        <h1 class="text-brutal-title font-black text-brutal-black dark:text-brutal-white mb-16 leading-none">
+            Career Timeline
+        </h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-[280px_auto] gap-12">
             <!-- Table of Contents -->
-            <nav class="hidden lg:block sticky top-8 self-start max-h-[calc(100vh-120px)]">
-                <div class="rounded-lg p-4 h-full max-h-[calc(100vh-120px)] flex flex-col">
-                    <h2 class="text-lg font-bold mb-3 text-pacamara-dark dark:text-white flex-shrink-0">Career Timeline</h2>
-                    <div class="overflow-y-auto toc-scrollbar flex-grow">
-                        <ul class="space-y-0.5 text-sm pr-2" id="toc">
+            <nav class="hidden lg:block sticky top-20 self-start">
+                <div class="border-2 border-brutal-black dark:border-brutal-white bg-brutal-white dark:bg-brutal-black p-6">
+                    <h2 class="font-mono text-brutal-meta text-brutal-black dark:text-brutal-white mb-6">NAVIGATION:</h2>
+                    <div class="max-h-[calc(100vh-200px)] overflow-y-auto">
+                        <ul class="space-y-2" id="toc">
                             {careers.map((item, index) => (
                                 <li>
                                     <a 
                                         href={`#career-${index}`}
-                                        class="block py-2 px-3 rounded-lg hover:bg-pacamara-accent/10 hover:text-pacamara-accent transition-all duration-300 text-pacamara-primary/70 dark:text-white/70"
+                                        class="block p-3 border border-brutal-black dark:border-brutal-white hover:bg-brutal-black hover:text-brutal-white dark:hover:bg-brutal-white dark:hover:text-brutal-black transition-all duration-200 text-brutal-black dark:text-brutal-white"
                                         data-index={index}
                                     >
-                                        <span class="font-medium">{item.data.title}</span>
-                                        <span class="block text-xs opacity-75 mt-0.5">{item.data.company}</span>
+                                        <span class="font-mono text-xs font-bold block">{item.data.title}</span>
+                                        <span class="font-mono text-xs opacity-75 block mt-1">{item.data.company}</span>
                                     </a>
                                 </li>
                             ))}
@@ -38,55 +53,53 @@ const formatDate = (date: Date) => {
             </nav>
 
             <!-- Career Timeline -->
-            <div class="space-y-8">
+            <div class="space-y-12">
                 {careers.map((item, index) => (
-                    <div id={`career-${index}`} class="scroll-mt-8 border-l-2 border-pacamara-accent/20 pl-6 transition-all duration-300">
-                        <div class="flex flex-col md:flex-row justify-between mb-2">
-                            <h3 class="text-xl font-bold text-pacamara-dark dark:text-white">
-                                {item.data.title}
-                            </h3>
-                            <span class="text-pacamara-secondary text-sm">
-                                {formatDate(item.data.startDate)} - 
-                                {item.data.endDate ? formatDate(item.data.endDate) : 'Present'}
-                            </span>
+                    <article id={`career-${index}`} class="scroll-mt-20 border-2 border-brutal-black dark:border-brutal-white bg-brutal-white dark:bg-brutal-black p-8">
+                        <!-- Position metadata -->
+                        <div class="border-b border-brutal-gray pb-4 mb-6">
+                            <div class="flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs text-brutal-dark dark:text-brutal-white">
+                                <span>POSITION: {index + 1}/{careers.length}</span>
+                                <span>DURATION: {formatDate(item.data.startDate)} - {item.data.endDate ? formatDate(item.data.endDate) : 'PRESENT'}</span>
+                                <span>LOCATION: {item.data.location}</span>
+                            </div>
                         </div>
-                        <h4 class="text-base text-pacamara-accent mb-3">
-                            {item.data.company} • {item.data.location}
+                        
+                        <!-- Position title -->
+                        <h3 class="text-3xl font-black text-brutal-black dark:text-brutal-white mb-4 leading-tight">
+                            {item.data.title}
+                        </h3>
+                        
+                        <!-- Company -->
+                        <h4 class="font-mono text-lg text-brutal-black dark:text-brutal-white mb-6 uppercase">
+                            @ {item.data.company}
                         </h4>
-                        <ul class="list-disc list-inside space-y-1.5 text-pacamara-primary/70 dark:text-white/70">
+                        
+                        <!-- Description -->
+                        <div class="space-y-3">
                             {item.data.description.map(desc => (
-                                <li>{desc}</li>
+                                <p class="text-brutal-content text-brutal-dark dark:text-brutal-white font-serif leading-relaxed pl-4 border-l-2 border-brutal-black dark:border-brutal-white">
+                                    {desc}
+                                </p>
                             ))}
-                        </ul>
-                    </div>
+                        </div>
+                    </article>
                 ))}
             </div>
         </div>
-    </div>
+    </section>
 </Base>
 
 <style>
-    .toc-scrollbar {
-        scrollbar-width: thin;
-        scrollbar-color: theme('colors.pacamara-accent/30') transparent;
-    }
-
-    .toc-scrollbar::-webkit-scrollbar {
-        width: 3px;
-    }
-
-    .toc-scrollbar::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .toc-scrollbar::-webkit-scrollbar-thumb {
-        background-color: theme('colors.pacamara-accent/30');
-        border-radius: 20px;
-    }
-
-    /* Active state for TOC items */
+    /* Active state for TOC items - brutalist style */
     .toc-active {
-        @apply bg-pacamara-accent/10 text-pacamara-accent;
+        background: theme('colors.brutal.black') !important;
+        color: theme('colors.brutal.white') !important;
+    }
+    
+    .dark .toc-active {
+        background: theme('colors.brutal.white') !important;
+        color: theme('colors.brutal.black') !important;
     }
 </style>
 

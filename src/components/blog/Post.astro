@@ -8,19 +8,19 @@ import defaultImage from "../../assets/default.jpg";
 
 const isOdd = num % 2;
 ---
-<article class="group mb-6 last:mb-0 pb-6 border-b border-gray-200 dark:border-gray-700 group-last:border-b-0">
-    <div class="space-y-3">
-        <h3 class="text-xl font-bold">
-            <a href={ '/blog/' + postData.slug } class="text-pacamara-dark hover:text-pacamara-accent dark:text-white dark:hover:text-pacamara-accent transition-colors">
+<article class="group mb-8 last:mb-0 pb-8 border-b border-brutal-gray dark:border-brutal-gray last:border-b-0">
+    <div class="space-y-4">
+        <h3 class="text-2xl font-black leading-tight">
+            <a href={ '/blog/' + postData.slug } class="text-brutal-black hover:underline dark:text-brutal-white transition-all duration-200">
                 { postData.data.title }
             </a>
         </h3>
         
-        <p class="text-pacamara-primary/70 dark:text-white/70 text-sm leading-relaxed">
+        <p class="text-brutal-content text-brutal-dark dark:text-brutal-white leading-relaxed font-serif">
             { postData.data.intro }
         </p>
         
-        <div class="flex flex-row flex-wrap gap-3 items-center text-sm">
+        <div class="flex flex-row flex-wrap gap-4 items-center">
             <Tag tags={postData.data.tag} />
             <PublishDate date={postData.data.pubDate} />
         </div>

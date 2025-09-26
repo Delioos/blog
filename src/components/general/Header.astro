@@ -4,20 +4,68 @@ import HamburgerButton from "./HamburgerButton.astro";
 import Navigation from "./Navigation.astro"
 
 ---
-<div class="navigation flex-1 hidden absolute top-0 left-0 w-full bg-pacamara-white dark:bg-pacamara-dark transition-all duration-300 p-7 pt-[112px] z-10 shadow-2xl" id="navigation_wrapper">
+<!-- Fixed top navigation bar with transparent blur background -->
+<header class="fixed top-0 left-0 w-full h-12 bg-white/90 dark:bg-brutal-dark/90 backdrop-blur-md z-50 border-b border-brutal-gray">
+    <div class="container mx-auto h-full px-6 flex items-center justify-between">
+        <!-- Logo/Brand -->
+        <div class="flex items-center">
+            <a href="/" class="font-mono text-sm text-brutal-black dark:text-brutal-white hover:text-brutal-gray transition-colors duration-200">
+                Delioos
+            </a>
+        </div>
+        
+        <!-- Main Navigation -->
+        <nav class="hidden md:flex items-center space-x-6">
+            <a href="/blog" class="nav-link font-mono text-sm text-brutal-black dark:text-brutal-white hover:text-brutal-gray transition-colors duration-200" data-key="b">[B] BLOG</a>
+            <a href="/projects" class="nav-link font-mono text-sm text-brutal-black dark:text-brutal-white hover:text-brutal-gray transition-colors duration-200" data-key="p">[P] PROJECTS</a>
+            <a href="/career" class="nav-link font-mono text-sm text-brutal-black dark:text-brutal-white hover:text-brutal-gray transition-colors duration-200" data-key="c">[C] CAREER</a>
+            <a href="/about-me" class="nav-link font-mono text-sm text-brutal-black dark:text-brutal-white hover:text-brutal-gray transition-colors duration-200" data-key="a">[A] ABOUT</a>
+        </nav>
+        
+        <!-- Right side controls -->
+        <div class="flex items-center space-x-4">
+            <ModeSwitch />
+            <div class="md:hidden">
+                <HamburgerButton />
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile navigation -->
+<div class="navigation flex-1 hidden absolute top-12 left-0 w-full bg-white/95 dark:bg-brutal-dark/95 backdrop-blur-md transition-all duration-300 p-6 z-40 shadow-2xl border-b border-brutal-gray" id="navigation_wrapper">
     <Navigation />
 </div>
-<header class="container mx-auto max-w-screen-xl px-7 py-10 bg-white flex flex-initial flex-row gap-10 items-center justify-between transition-all duration-300 dark:bg-pacamara-dark relative z-20">
-    <div class="logo flex-none">
-        <a href="/" class="font-bold font-pacamara-space text-lg hover:text-pacamara-accent transition-all duration-300 dark:text-white dark:hover:text-pacamara-accent">Delioos</a>
-    </div>
-    <div class="navigation flex-1 hidden md:block">
-        <Navigation />
-    </div>
-    
-    <div class="relative flex flex-initial flex-row items-center gap-5">
-        <ModeSwitch />
-        <HamburgerButton />
-    </div>
-    
-</header>
+
+<!-- Spacer to prevent content from being hidden behind fixed header -->
+<div class="h-12"></div>
+
+<script>
+  // Keyboard shortcuts for navigation
+  const setupKeyboardShortcuts = () => {
+    document.addEventListener('keydown', (e) => {
+      // Only trigger if not typing in an input field and no modifier keys are pressed
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+        return;
+      }
+      
+      // Ignore if any modifier keys are pressed (Ctrl, Alt, Meta, Shift)
+      if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) {
+        return;
+      }
+      
+      // Find navigation link by key
+      const key = e.key.toLowerCase();
+      const navLink = document.querySelector(`[data-key="${key}"]`);
+      
+      if (navLink) {
+        e.preventDefault();
+        navLink.click();
+      }
+    });
+  };
+
+  setupKeyboardShortcuts();
+  // Re-setup on view transitions
+  document.addEventListener('astro:after-swap', setupKeyboardShortcuts);
+</script>

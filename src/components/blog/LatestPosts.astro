@@ -11,7 +11,7 @@ const posts = (await getCollection('blog', ({ data }) => {
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
   ).slice(0, postLimit);
 ---
-<section class="container mx-auto max-w-screen-lg px-7 py-10 mb-10">
+<section class="container mx-auto max-w-screen-xl px-6 py-16">
     {
         posts.map((post, index) => {
           return <Post postData={post} num={index} />;

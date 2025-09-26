@@ -38,16 +38,50 @@ const postData = {
 
 ---
 <Base postData={postData}>
-    <section class="container mx-auto max-w-screen-lg px-7 py-10">
-        <TagList />
+    <section class="container mx-auto max-w-screen-xl px-6 py-16">
+        <!-- Metadata section -->
+        <div class="border-t border-brutal-gray pt-6 mb-12">
+            <div class="flex flex-wrap gap-x-12 gap-y-2 font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white">
+                <span>TYPE: Blog</span>
+                <span>POSTS: {allPosts.length}</span>
+                <span>PAGE: {page.currentPage} of {page.lastPage}</span>
+                <span>STATUS: Active</span>
+            </div>
+        </div>
         
-        <div id="posts-container">
+        <!-- Main title -->
+        <h1 class="text-brutal-title font-black text-brutal-black dark:text-brutal-white mb-16 leading-none">
+            Blog Articles
+        </h1>
+        
+        <!-- Tag list -->
+        <div class="mb-16">
+            <TagList />
+        </div>
+        
+        <!-- Posts list -->
+        <div id="posts-container" class="max-w-4xl">
             {
-                allPosts.map((post, index) => {
+                page.data.map((post, index) => {
                     return <Post postData={post} num={index} />;
                 })
             }
         </div>
+        
+        <!-- Pagination -->
+        {page.lastPage > 1 && (
+            <nav class="mt-16 flex justify-center gap-4">
+                {page.url.prev && (
+                    <a href={page.url.prev} class="pill-button">PREVIOUS</a>
+                )}
+                <span class="pill-button pointer-events-none">
+                    {page.currentPage} OF {page.lastPage}
+                </span>
+                {page.url.next && (
+                    <a href={page.url.next} class="pill-button">NEXT</a>
+                )}
+            </nav>
+        )}
     </section>
 </Base>
 

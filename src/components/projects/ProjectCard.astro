@@ -4,37 +4,37 @@ import ProjectTag from './ProjectTag.astro';
 
 const { project } = Astro.props;
 ---
-<article class="bg-white dark:bg-pacamara-dark rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
+<article class="bg-brutal-light dark:bg-brutal-dark border-2 border-brutal-black dark:border-brutal-white overflow-hidden transition-all duration-200 hover:shadow-lg">
     {project.data.image && (
         <Image 
             src={project.data.image} 
             alt={project.data.title}
             width={800}
             height={400}
-            class="w-full h-48 object-cover"
+            class="w-full h-48 object-cover border-b-2 border-brutal-black dark:border-brutal-white"
         />
     )}
     <div class="p-6">
-        <h3 class="text-2xl font-bold text-pacamara-dark dark:text-white mb-2">
+        <h3 class="text-2xl font-black text-brutal-black dark:text-brutal-white mb-4 leading-tight">
             {project.data.title}
         </h3>
-        <p class="text-pacamara-primary/70 dark:text-white/70 mb-4">
+        <p class="text-brutal-content text-brutal-dark dark:text-brutal-white mb-6 font-serif leading-relaxed">
             {project.data.description}
         </p>
-        <div class="flex flex-wrap gap-2 mb-4">
+        <div class="flex flex-wrap gap-2 mb-6">
             <ProjectTag tags={project.data.tags} />
         </div>
         <div class="flex gap-4">
             {project.data.github && (
                 <a href={project.data.github} target="_blank" rel="noopener noreferrer" 
-                   class="text-pacamara-accent hover:text-pacamara-dark dark:hover:text-white transition-colors">
-                    GitHub
+                   class="pill-button text-xs">
+                    GITHUB
                 </a>
             )}
             {project.data.demo && (
                 <a href={project.data.demo} target="_blank" rel="noopener noreferrer"
-                   class="text-pacamara-accent hover:text-pacamara-dark dark:hover:text-white transition-colors">
-                    Live Demo
+                   class="pill-button text-xs">
+                    DEMO
                 </a>
             )}
         </div>

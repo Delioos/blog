@@ -8,15 +8,31 @@ const featuredProjects = projects.filter(p => p.data.featured);
 const otherProjects = projects.filter(p => !p.data.featured);
 ---
 <Base>
-    <section class="container mx-auto max-w-screen-lg px-7 py-10">
-        <h1 class="text-4xl font-bold text-pacamara-dark dark:text-white mb-8">Featured Projects</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+    <section class="container mx-auto max-w-screen-xl px-6 py-16">
+        <!-- Metadata section -->
+        <div class="border-t border-brutal-gray pt-6 mb-12">
+            <div class="flex flex-wrap gap-x-12 gap-y-2 font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white">
+                <span>TYPE: Portfolio</span>
+                <span>FEATURED: {featuredProjects.length}</span>
+                <span>TOTAL: {projects.length}</span>
+                <span>STATUS: Active</span>
+            </div>
+        </div>
+        
+        <!-- Main title -->
+        <h1 class="text-brutal-title font-black text-brutal-black dark:text-brutal-white mb-16 leading-none">
+            Featured Projects
+        </h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
             {featuredProjects.map(project => (
                 <ProjectCard project={project} />
             ))}
         </div>
 
-        <h2 class="text-3xl font-bold text-pacamara-dark dark:text-white mb-8">Other Projects</h2>
+        <h2 class="text-4xl font-black text-brutal-black dark:text-brutal-white mb-12 leading-tight">
+            All Projects
+        </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {otherProjects.map(project => (
                 <ProjectCard project={project} />

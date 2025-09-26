@@ -40,21 +40,44 @@ const postData = {
 ---
 
 <Base postData={postData}>
-    <article class="container mx-auto max-w-screen-lg px-7 py-10">
-        <h1 class="text-4xl font-bold mb-4">{entry.data.title}</h1>
-        <div class="flex items-center gap-4 mb-8">
-            {author && <AuthorInfo authorData={author} />}
-            <PublishDate date={entry.data.pubDate} />
-            <Tag tags={entry.data.tag} />
+    <article class="container mx-auto max-w-3xl px-6 py-16">
+        <!-- Article metadata with monospace formatting -->
+        <div class="border-t border-brutal-gray pt-6 mb-12">
+            <div class="flex flex-wrap gap-x-12 gap-y-2 font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white">
+                <span>TYPE: Article</span>
+                <span>DATE: {entry.data.pubDate.toLocaleDateString()}</span>
+                <span>AUTHOR: {author?.data.name || 'Delioos'}</span>
+                {entry.data.tag && <span>TAGS: {entry.data.tag.join(', ')}</span>}
+            </div>
         </div>
-        <div class="prose max-w-none
-            prose-headings:font-bold prose-headings:text-pacamara-accent 
-            prose-p:text-pacamara-primary/70 lg:prose-p:text-[18px] prose-p:transition-all prose-p:duration-300 
-            prose-a:font-semibold prose-a:text-pacamara-dark prose-a:hover:text-pacamara-accent prose-a:no-underline prose-a:transition-all prose-a:duration-300
-            prose-strong:font-normal 
-            prose-headings:font-pacamara-space prose-h2:mb-7
-            dark:prose-a:text-white dark:prose-a:hover:text-pacamara-accent dark:prose-p:text-white/70
-            dark:prose-li:text-white/70
+        
+        <!-- Main title with brutalist typography -->
+        <h1 class="text-brutal-title font-black text-brutal-black dark:text-brutal-white mb-12 leading-none">
+            {entry.data.title}
+        </h1>
+        
+        <!-- Article content with proper typography -->
+        <div class="max-w-none
+            prose prose-lg prose-serif
+            prose-headings:font-black prose-headings:text-brutal-black prose-headings:leading-tight prose-headings:mb-6 prose-headings:mt-12
+            prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl
+            prose-p:text-brutal-content prose-p:text-brutal-dark prose-p:leading-relaxed prose-p:mb-6
+            prose-a:text-brutal-black prose-a:underline prose-a:decoration-2 prose-a:underline-offset-2 prose-a:font-medium
+            prose-a:hover:bg-brutal-black prose-a:hover:text-brutal-white prose-a:transition-all prose-a:duration-200
+            prose-strong:font-bold prose-strong:text-brutal-black
+            prose-code:bg-brutal-gray prose-code:px-1 prose-code:py-0.5 prose-code:rounded-none prose-code:font-mono
+            prose-pre:bg-brutal-black prose-pre:text-brutal-white prose-pre:rounded-none prose-pre:border-2 prose-pre:border-brutal-black
+            prose-blockquote:border-l-4 prose-blockquote:border-brutal-black prose-blockquote:pl-6 prose-blockquote:italic
+            prose-ul:list-disc prose-ol:list-decimal
+            prose-li:text-brutal-dark prose-li:mb-2
+            dark:prose-headings:text-brutal-white
+            dark:prose-p:text-brutal-white
+            dark:prose-a:text-brutal-white dark:prose-a:hover:bg-brutal-white dark:prose-a:hover:text-brutal-black
+            dark:prose-strong:text-brutal-white
+            dark:prose-code:bg-brutal-dark dark:prose-code:text-brutal-white
+            dark:prose-pre:bg-brutal-nav dark:prose-pre:border-brutal-white
+            dark:prose-blockquote:border-brutal-white
+            dark:prose-li:text-brutal-white
             ">
             <Content />
         </div>

@@ -1,9 +1,6 @@
 ---
 const {date} = Astro.props;
 ---
-<small class="
-        text-pacamara-primary/50 font-pacamara-space tracking-widest transition-all duration-300 text-[16px]
-        dark:text-white/40
-    ">
-    { date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) }
+<small class="font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white">
+    { date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}).toUpperCase() }
 </small>

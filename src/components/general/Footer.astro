@@ -2,34 +2,169 @@
 import config from '../../config.mjs';
 import SocialIcon from './SocialIcon.astro';
 ---
-<div>
 
-<div class="w-full h-[1px] overflow-hidden gradient-line"></div>
-<div class="py-14 transition-all duration-300 bg-gradient-to-r from-pacamara-secondary/10 to-pacamara-accent/10 dark:bg-gradient-to-r dark:from-pacamara-accent/[2%] dark:to-pacamara-secondary/[5%]">
-    <footer class="container mx-auto max-w-screen-xl flex flex-initial lg:flex-row flex-col gap-10 items-center px-7">
-        <div class="logo flex-none">
-            <a href="/" class="font-bold font-pacamara-space text-lg hover:text-pacamara-accent transition-all duration-300 dark:text-white dark:hover:text-pacamara-accent">Delioos</a>
+<!-- Footer with brutalist styling -->
+<div class="border-t-2 border-brutal-black dark:border-brutal-white bg-brutal-light dark:bg-brutal-dark mt-24">
+    <footer class="container mx-auto max-w-screen-xl px-6 py-16">
+        <!-- Footer metadata -->
+        <div class="border-t border-brutal-gray pt-6 mb-12">
+            <div class="flex flex-wrap gap-x-12 gap-y-2 font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white">
+                <span>SECTION: Footer</span>
+                <span>YEAR: {new Date().getFullYear()}</span>
+                <span>BUILD: Latest</span>
+                <span>STATUS: Online</span>
+            </div>
         </div>
-
-        <ul class="list-none text-[14px] font-normal flex flex-initial flex-row content-center items-center gap-x-[35px]">
-            <SocialIcon socialUrl={config?.social?.dribbble} socialType="dribbble" />
-
-            <SocialIcon socialUrl={config?.social?.facebook} socialType="facebook" />
-
-            <SocialIcon socialUrl={config?.social?.github} socialType="github" />
-
-            <SocialIcon socialUrl={config?.social?.instagram} socialType="instagram" />
-
-            <SocialIcon socialUrl={config?.social?.mastodon} socialType="mastodon" />
-
-            <SocialIcon socialUrl={config?.social?.pinterest} socialType="pinterest" />
-
-            <SocialIcon socialUrl={config?.social?.skype} socialType="skype" />
-
-            <SocialIcon socialUrl={config?.social?.twitter} socialType="twitter" />
-        </ul>
+        
+        <!-- Social connections -->
+        <div class="mb-12">
+            <h3 class="font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white mb-6">CONNECT:</h3>
+            <div class="flex flex-wrap gap-3">
+                {config?.social?.github && (
+                    <a 
+                        href={config.social.github} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="pill-button"
+                    >
+                        GITHUB
+                    </a>
+                )}
+                {config?.social?.twitter && (
+                    <a 
+                        href={config.social.twitter} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="pill-button"
+                    >
+                        TWITTER
+                    </a>
+                )}
+                {config?.social?.dribbble && (
+                    <a 
+                        href={config.social.dribbble} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="pill-button"
+                    >
+                        DRIBBBLE
+                    </a>
+                )}
+                {config?.social?.instagram && (
+                    <a 
+                        href={config.social.instagram} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="pill-button"
+                    >
+                        INSTAGRAM
+                    </a>
+                )}
+            </div>
+        </div>
+        
+        <!-- Navigation links -->
+        <div class="mb-12">
+            <h3 class="font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white mb-6">SITE MAP:</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="/" class="font-mono text-sm text-brutal-black dark:text-brutal-white hover:underline transition-all duration-200">HOME</a>
+                <a href="/blog" class="font-mono text-sm text-brutal-black dark:text-brutal-white hover:underline transition-all duration-200">BLOG</a>
+                <a href="/projects" class="font-mono text-sm text-brutal-black dark:text-brutal-white hover:underline transition-all duration-200">PROJECTS</a>
+                <a href="/career" class="font-mono text-sm text-brutal-black dark:text-brutal-white hover:underline transition-all duration-200">CAREER</a>
+                <a href="/about-me" class="font-mono text-sm text-brutal-black dark:text-brutal-white hover:underline transition-all duration-200">ABOUT</a>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="border-t-2 border-brutal-black dark:border-brutal-white pt-8">
+            <div class="text-center">
+                <p class="font-mono text-sm text-brutal-dark dark:text-brutal-white">
+                    &copy; {new Date().getFullYear()} DELIOOS. ALL RIGHTS RESERVED.
+                </p>
+            </div>
+        </div>
     </footer>
-    <div class="container mx-auto max-w-screen-xl px-7 mt-10 text-center text-sm text-pacamara-primary/60 dark:text-white/60">
-        <p>&copy; {new Date().getFullYear()} Delioos. All rights reserved.</p>
+</div>
+
+<!-- Small spacer to ensure scrollability -->
+<div class="h-96"></div>
+
+<!-- Brutal ROULE Footer Effect -->
+<div class="roule-footer-container relative overflow-hidden">
+    <div class="roule-text" id="roule-text">
+        ROULE
     </div>
 </div>
+
+<script>
+  // ROULE footer scroll effects
+  const setupRouleEffect = () => {
+    const rouleText = document.getElementById('roule-text');
+    if (!rouleText) return;
+
+    let isAtBottom = false;
+    let infiniteTimeout;
+    let lastScrollTop = 0;
+
+    const checkScroll = () => {
+      const scrollTop = window.scrollY;
+      const documentHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const scrollPercentage = scrollTop / (documentHeight - windowHeight);
+
+      // Check if we're near the footer (70% scrolled)
+      const nearBottom = scrollPercentage > 0.7;
+      
+      // Detect scroll direction
+      const scrollingDown = scrollTop > lastScrollTop;
+      const scrollingUp = scrollTop < lastScrollTop;
+      lastScrollTop = scrollTop;
+
+      if (nearBottom && scrollingDown) {
+        // Show ROULE when scrolling down near bottom
+        rouleText.classList.add('show');
+        rouleText.classList.remove('infinite');
+        
+        // Clear any existing timeout
+        if (infiniteTimeout) {
+          clearTimeout(infiniteTimeout);
+        }
+        
+        // Start infinite animation after a delay
+        infiniteTimeout = setTimeout(() => {
+          rouleText.classList.add('infinite');
+        }, 1000);
+        
+        isAtBottom = true;
+      } else if (scrollingUp && isAtBottom) {
+        // Hide ROULE when scrolling up from bottom
+        rouleText.classList.remove('show', 'infinite');
+        if (infiniteTimeout) {
+          clearTimeout(infiniteTimeout);
+        }
+        isAtBottom = false;
+      }
+    };
+
+    // Throttled scroll handler
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          checkScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    // Initial check
+    checkScroll();
+  };
+
+  setupRouleEffect();
+  // Re-setup on view transitions
+  document.addEventListener('astro:after-swap', setupRouleEffect);
+</script>

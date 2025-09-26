@@ -6,11 +6,6 @@ import TagList from "../../../components/blog/TagList.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection('blog');
-    console.log("1. All posts:", posts.map(p => ({
-        slug: p.slug,
-        tags: p.data.tag,
-        title: p.data.title
-    })));
     
     // Get all valid posts with tags
     const validPosts = posts.filter(post => 
@@ -18,27 +13,16 @@ export async function getStaticPaths() {
         Array.isArray(post.data.tag) && 
         post.data.tag.length > 0
     );
-    console.log("2. Valid posts with tags:", validPosts.map(p => ({
-        slug: p.slug,
-        tags: p.data.tag,
-        title: p.data.title
-    })));
     
     // Get unique tags, normalized to lowercase
     const tags = [...new Set(validPosts.flatMap(post => 
         post.data.tag.map(t => t.toLowerCase())
     ))];
-    console.log("3. Unique normalized tags:", tags);
     
     const paths = tags.map(tag => {
         const filteredPosts = validPosts.filter(post => 
             post.data.tag.some(t => t.toLowerCase() === tag.toLowerCase())
-        );
-        console.log(`4. Posts for tag "${tag}":`, filteredPosts.map(p => ({
-            slug: p.slug,
-            tags: p.data.tag,
-            title: p.data.title
-        })));
+        ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
         
         return {
             params: { tag: tag.toLowerCase() },
@@ -49,23 +33,11 @@ export async function getStaticPaths() {
         };
     });
     
-    console.log("5. Generated paths:", paths.map(p => ({
-        tag: p.params.tag,
-        postCount: p.props.posts.length
-    })));
-    
     return paths;
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
-
-console.log("6. Rendering page for tag:", tag);
-console.log("7. Posts to display:", posts?.map(p => ({
-    slug: p.slug,
-    tags: p.data.tag,
-    title: p.data.title
-})));
 
 const postData = {
     data: {
@@ -76,17 +48,40 @@ const postData = {
 ---
 
 <Base postData={postData}>
-    <section class="container mx-auto max-w-screen-lg px-7 py-10">
-        <TagList activeTag={tag} />
+    <section class="container mx-auto max-w-screen-xl px-6 py-16">
+        <!-- Metadata section -->
+        <div class="border-t border-brutal-gray pt-6 mb-12">
+            <div class="flex flex-wrap gap-x-12 gap-y-2 font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white">
+                <span>TYPE: Tag Filter</span>
+                <span>TAG: {tag.toUpperCase()}</span>
+                <span>POSTS: {posts?.length || 0}</span>
+                <span>STATUS: Filtered</span>
+            </div>
+        </div>
         
-        {posts && posts.length > 0 ? (
-            posts.map((post, index) => (
-                <Post postData={post} num={index} />
-            ))
-        ) : (
-            <p class="text-center text-pacamara-primary/70 dark:text-white/70">
-                No posts found for tag "{tag}"
-            </p>
-        )}
+        <!-- Main title -->
+        <h1 class="text-brutal-title font-black text-brutal-black dark:text-brutal-white mb-16 leading-none">
+            #{tag.toUpperCase()}
+        </h1>
+        
+        <!-- Tag list -->
+        <div class="mb-16">
+            <TagList activeTag={tag} />
+        </div>
+        
+        <!-- Posts list -->
+        <div class="max-w-4xl">
+            {posts && posts.length > 0 ? (
+                posts.map((post, index) => (
+                    <Post postData={post} num={index} />
+                ))
+            ) : (
+                <div class="text-center py-16">
+                    <p class="text-brutal-content text-brutal-dark dark:text-brutal-white font-serif">
+                        No posts found for tag "{tag.toUpperCase()}"
+                    </p>
+                </div>
+            )}
+        </div>
     </section>
 </Base> 

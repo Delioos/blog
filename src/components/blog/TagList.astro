@@ -10,27 +10,28 @@ const tags = [...new Set(posts
 
 const { activeTag } = Astro.props;
 ---
-<div class="flex flex-wrap gap-3 mb-8">
-    <a 
-        href="/blog"
-        class={`text-[16px] border-[1px] leading-none rounded-full py-3 px-5 transition-all duration-300
-        ${!activeTag 
-            ? 'bg-pacamara-accent text-white border-pacamara-accent' 
-            : 'bg-transparent border-pacamara-secondary text-pacamara-secondary hover:bg-pacamara-accent hover:text-white hover:border-pacamara-accent'
-        }`}
-    >
-        All
-    </a>
-    {tags.map(tag => (
+<div class="mb-8">
+    <h3 class="font-mono text-brutal-meta text-brutal-dark dark:text-brutal-white mb-6">FILTER BY TAG:</h3>
+    <div class="flex flex-wrap gap-3">
         <a 
-            href={`/blog/tag/${tag.toLowerCase()}`}
-            class={`text-[16px] border-[1px] leading-none rounded-full py-3 px-5 transition-all duration-300
-            ${activeTag?.toLowerCase() === tag.toLowerCase()
-                ? 'bg-pacamara-accent text-white border-pacamara-accent'
-                : 'bg-transparent border-pacamara-secondary text-pacamara-secondary hover:bg-pacamara-accent hover:text-white hover:border-pacamara-accent'
+            href="/blog"
+            class={`pill-button text-xs ${!activeTag 
+                ? 'active' 
+                : ''
             }`}
         >
-            {tag}
+            ALL
         </a>
-    ))}
+        {tags.map(tag => (
+            <a 
+                href={`/blog/tag/${tag.toLowerCase()}`}
+                class={`pill-button text-xs ${activeTag?.toLowerCase() === tag.toLowerCase()
+                    ? 'active'
+                    : ''
+                }`}
+            >
+                {tag.toUpperCase()}
+            </a>
+        ))}
+    </div>
 </div> 
