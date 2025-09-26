@@ -2,7 +2,7 @@
 title: "Main flaws and attacks in crypto"
 pubDate: 2024-12-05
 intro: "A guide for developers"
-tag: ["Technology", "Security"] 
+tag: ["Tech"] 
 author: delioos 
 
 ---
@@ -10,7 +10,7 @@ author: delioos
 
 One of the core values of cryptocurrency and blockchain technology is decentralization. While traditional financial systems rely on human oversight at every level to validate operations and detect anomalies, the cypherpunk vision promotes code-based controls. This approach empowers individuals to truly own their assets without borders or intermediaries.
 
-However, this shift doesn't eliminate human error—it concentrates it in the hands of developers. In recent years, we've witnessed numerous security incidents resulting in substantial losses. In 2024 alone, over **$2.3 billion** were lost to hacks and exploits, with DeFi protocols being particularly vulnerable.
+However, this shift doesn't eliminate human error—it concentrates it in the hands of developers. In recent years, we've witnessed numerous security incidents resulting in substantial losses. In 2024 alone, over $2.3 billion were lost to hacks and exploits, with DeFi protocols being particularly vulnerable.
 
 ## Essential Security Patterns for Developers
 
@@ -30,7 +30,7 @@ modifier onlyOwner() {
 
 ### Reentrancy Protection
 
-Reentrancy attacks remain one of the most common vulnerabilities in smart contracts. The infamous **DAO hack** of 2016 exploited this vulnerability, resulting in a loss of **$60 million**. Any function that sends ETH, interacts with external contracts, or updates state after external calls must implement reentrancy protection to prevent exploitation.
+Reentrancy attacks remain one of the most common vulnerabilities in smart contracts. The infamous DAO hack of 2016 exploited this vulnerability, resulting in a loss of $60 million. Any function that sends ETH, interacts with external contracts, or updates state after external calls must implement reentrancy protection to prevent exploitation.
 
 ### Flash Loan Considerations
 
@@ -38,7 +38,7 @@ Flash loans have introduced powerful new attack vectors in DeFi protocols. These
 
 ### Proxy Patterns for Upgradability
 
-While smart contracts are immutable by default, proxy patterns enable controlled upgradability. The [**EIP-1967**](https://eips.ethereum.org/EIPS/eip-1967) standard provides a robust framework for upgradeable contracts, giving teams the ability to fix security vulnerabilities, add new features, and optimize gas costs without compromising security.
+While smart contracts are immutable by default, proxy patterns enable controlled upgradability. The EIP-1967 standard provides a robust framework for upgradeable contracts, giving teams the ability to fix security vulnerabilities, add new features, and optimize gas costs without compromising security.
 
 ## Common Attack Vectors
 
@@ -48,7 +48,7 @@ Beyond specific smart contract vulnerabilities, there exists a class of generali
 
 Front-running in blockchain differs significantly from traditional markets. Searchers deploy sophisticated infrastructure combining high-performance contracts and monitoring systems that run continuously. These systems analyze the mempool in real-time, looking for profitable opportunities in user transactions. When identified, they automatically broadcast competing transactions with higher gas fees to ensure their transaction gets processed first.
 
-The **Curve Finance** incident perfectly illustrates the positive potential of front-running. White hat hacker **c0ffeebabe.eth** had monitoring systems in place that detected a malicious transaction targeting a vulnerability. Their searcher contract automatically deployed a protective transaction with higher gas fees, effectively preventing the attack and safeguarding user funds. This demonstrates how the same mechanics used in harmful front-running can also serve as a defense mechanism.
+The Curve Finance incident perfectly illustrates the positive potential of front-running. White hat hacker c0ffeebabe.eth had monitoring systems in place that detected a malicious transaction targeting a vulnerability. Their searcher contract automatically deployed a protective transaction with higher gas fees, effectively preventing the attack and safeguarding user funds. This demonstrates how the same mechanics used in harmful front-running can also serve as a defense mechanism.
 
 ### Sandwich Attacks
 

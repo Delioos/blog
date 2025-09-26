@@ -2,7 +2,7 @@
 title: "Uniswap v4: Hooks, Pools, and More"
 pubDate: 2023-09-05
 intro: "A comprehensive guide to the latest version of Uniswap"
-tag: ["DeFi", "Technology"] 
+tag: ["Tech", "Finance"] 
 author: delioos 
 
 ---
@@ -17,11 +17,11 @@ If you want to learn more about the current version of Uniswap, I recommend the 
 
 ## **Uni v4**
 
-On June 13, 2023, Uniswap shared its vision for v4 (in this [post](https://blog.uniswap.org/uniswap-v4)). I'll give you an overview of this major upcoming update, which significantly impacts the current liquidity system.
+On June 13, 2023, Uniswap shared its vision for v4. This major upcoming update significantly impacts the current liquidity system.
 
 # **HOOKS: MORE CUSTOMIZED POOLS**
 
-One of the major announcements is the introduction of hooks, smart contracts linked to our pool that can interact during its lifecycle (before or after a token exchange, for example).
+One of the major announcements is the introduction of hooks. These are smart contracts linked to pools that can interact during their lifecycle, like before or after a token exchange.
 
 This module is the keystone of potential innovations:
 
@@ -69,7 +69,7 @@ In the general case, a transaction means token transfer from address A to addres
 
 In flash accounting, rather than actually transferring assets at each step, the system tracks net asset balances. If we perform multiple transactions in a single block, the system only transfers the net balance, so it could be smaller (or potentially zero if we buy and sell the same amount) than the total of cumulative individual transactions.
 
-However, the tech needs to be proven (precise and secure) since this abstraction lightens the chain but poses a dilemma regarding traceability precision... However, this doesn't remove the trustless aspect as all smart contracts remain open source, so no worries on that front.
+However, the tech needs to be proven since this abstraction lightens the chain but poses a dilemma regarding traceability precision. This doesn't remove the trustless aspect as all smart contracts remain open source.
 
 ## **Related License Change**
 

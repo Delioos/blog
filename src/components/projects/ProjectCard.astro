@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import Tag from '../general/Tag.astro';
+import ProjectTag from './ProjectTag.astro';
 
 const { project } = Astro.props;
 ---
@@ -22,7 +22,7 @@ const { project } = Astro.props;
             {project.data.description}
         </p>
         <div class="flex flex-wrap gap-2 mb-4">
-            <Tag tags={project.data.tags} />
+            <ProjectTag tags={project.data.tags} />
         </div>
         <div class="flex gap-4">
             {project.data.github && (
